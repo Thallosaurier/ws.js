@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<soap:Envelope xmlns:soap="http://schemas.xmlsoap.org/soap/envelope/" 
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+    xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+    <soap:Body>
+        <TodaysDilbertResponse xmlns="http://gcomputer.net/webservices/">
+            <TodaysDilbertResult>http://www.comics.com
+
+WebException is thrown. Message is :  The request was aborted: The connection was closed unexpectedly.
+            </TodaysDilbertResult>
+        </TodaysDilbertResponse>
+    </soap:Body>
+</soap:Envelope>

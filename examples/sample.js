@@ -1,25 +1,26 @@
-var ws = require('ws.js')
+var ws = require('../lib/ws.js')
 
-request = "<Envelope xmlns='http://schemas.xmlsoap.org/soap/envelope/'>" +
-          "<Header />" +
-            "<Body>" +
-              "<GetData xmlns='http://tempuri.org/'>" +
-                "<value>123</value>" +
-              "</GetData>" +
-            "</Body>" +
-          "</Envelope>"
+var handlers = [new ws.Addr("http://www.w3.org/2005/08/addressing")
+  , new ws.Http()
+]
 
-var ctx =  { request: request
-           , url: "http://localhost:7171/Service/soap11wsa0408" //can also send to www.google.com if just testing the pipeline
-           , action: "http://tempuri.org/IService/GetData"
-           , contentType: "text/xml"
-           }
+var request = "<soap:Envelope xmlns:xsi='http://www.w3.org/2001/XMLSchema-instance' xmlns:xsd='http://www.w3.org/2001/XMLSchema' xmlns:soap='http://schemas.xmlsoap.org/soap/envelope/'>" +
+  "<soap:Body>" +
+  "<Add xmlns='http://tempuri.org/'>" +
+  "<intA>999</intA>" +
+  "<intB>100002</intB>" +
+  "</Add>" +
+  "</soap:Body>" +
+  "</soap:Envelope>"
 
+var ctx = {
+  request: request
+  , url: "http://www.dneonline.com/calculator.asmx"
+  , action: "http://tempuri.org/Add"
+  , contentType: "text/xml; charset=utf-8"
+}
 
-var handlers =  [ new ws.Addr("http://schemas.xmlsoap.org/ws/2004/08/addressing")
-                , new ws.Http()
-                ]
-
-ws.send(handlers, ctx, function(ctx) {
-  console.log("response: " + ctx.response);
+ws.send(handlers, ctx, (ctx) => {
+  console.log("status " + ctx.statusCode)
+  console.log(ctx.response)
 })
